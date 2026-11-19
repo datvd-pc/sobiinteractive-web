@@ -2,6 +2,23 @@
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import CtaBlock from '../components/CtaBlock.astro';
+import { Image } from 'astro:assets';
+import quyen from '../assets/team/quyen.png';
+import sophia from '../assets/team/sophia.png';
+import huy from '../assets/team/huy.png';
+import kien from '../assets/team/kien.png';
+import quang from '../assets/team/quang.png';
+import lan from '../assets/team/lan.png';
+
+// Team shown on the About page (owner approved names and roles, 2026-11-20).
+const team = [
+  { name: 'Quyen Alice Nguyen', role: 'Game Designer', photo: quyen },
+  { name: 'Sophia Nguyen', role: '2D Artist', photo: sophia },
+  { name: 'Huy Mario Nguyen', role: 'Developer', photo: huy },
+  { name: 'Kien Tran', role: 'Developer', photo: kien },
+  { name: 'Quang Nguyen', role: 'Developer', photo: quang },
+  { name: 'Lan Trinh', role: 'Marketing', photo: lan },
+];
 
 const values = [
   { title: 'Care', text: 'We polish every level and every small movement, because players feel the difference.' },
@@ -35,6 +52,21 @@ const values = [
     </div>
   </section>
 
+  <section class="section" id="team">
+    <div class="wrap">
+      <h2 data-reveal>The team</h2>
+      <div class="team">
+        {team.map((p) => (
+          <article class="member" data-reveal>
+            <Image src={p.photo} alt={`${p.name}, ${p.role} at SOBI Interactive`} width={480} height={480} class="member__photo" loading="lazy" />
+            <h3 class="member__name">{p.name}</h3>
+            <p class="member__role">{p.role}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
   <section class="section" id="careers">
     <div class="wrap split">
       <h2 data-reveal>Careers</h2>
@@ -61,12 +93,32 @@ const values = [
   .value h3 { margin-top: 48px; font-size: clamp(22px, 2vw, 26px); }
   .value p { margin: 16px 0 0; color: #cfcfcf; font-weight: 300; }
 
+  .team {
+    margin-top: 64px;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+  }
+  .member { background: var(--card); border: 1px solid var(--line); padding: 16px 16px 24px; }
+  .member__photo {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1;
+    object-fit: cover;
+    filter: grayscale(1) contrast(1.05);
+    transition: filter 0.4s ease;
+  }
+  .member:hover .member__photo { filter: none; }
+  .member__name { margin-top: 20px; font-size: clamp(18px, 1.8vw, 22px); }
+  .member__role { margin: 8px 0 0; color: var(--mute); font-size: 14px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 700; }
+
   .split { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 48px; }
   .split__big { margin: 0 0 20px; font-size: clamp(24px, 3vw, 36px); font-weight: 700; line-height: 1.2; }
   .split .lead { margin: 0; }
   .careers__btn { margin-top: 36px; }
 
   @media (max-width: 1000px) { .values { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 760px) { .team { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 40px; } .member { padding: 10px 10px 18px; } }
   @media (max-width: 900px) { .split { grid-template-columns: 1fr; gap: 24px; } }
   @media (max-width: 560px) { .values { grid-template-columns: 1fr; margin-top: 40px; } .value h3 { margin-top: 28px; } }
 </style>
