@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import TileBand from '../components/TileBand.astro';
+import { orgRef } from '../data/seo';
 
 // Form submissions are delivered to contact@sobiinteractive.com by Web3Forms.
 // Set PUBLIC_WEB3FORMS_KEY in web/.env. Without a key the form opens the visitor's mail app instead.
@@ -21,10 +22,28 @@ const faqs = [
   { q: 'How can we work together?', a: 'In three ways: we co-develop a game with you and share the revenue, we build a game for you as a full-service team, or you publish a game from our existing library.' },
   { q: 'Do you integrate our SDKs and share the data?', a: "Yes. We integrate your SDKs and share all of the game's data with you." },
 ];
+
+const jsonLd = [
+  {
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+  },
+  ...ways.map((w) => ({
+    '@type': 'Service',
+    name: `${w.title} for mobile game publishers`,
+    description: w.text,
+    serviceType: w.title,
+    provider: orgRef,
+    areaServed: 'Worldwide',
+    audience: { '@type': 'BusinessAudience', audienceType: 'Mobile game publishers' },
+  })),
+];
 ---
 <Base
   title="Partners | SOBI Interactive"
   description="SOBI Interactive works with publishers who want a dedicated mobile game team in Vietnam: co-development, full-service development and games from our library."
+  image="/og/og-partners.png"
+  jsonLd={jsonLd}
 >
   <PageHero l1="Build it" l2="with us.">
     <p class="lead">From the first idea to global launch, SOBI works with publishers who want a dedicated mobile game team in Vietnam.</p>

@@ -1,17 +1,40 @@
 ---
 import Base from '../layouts/Base.astro';
+import HeroMotion from '../components/HeroMotion.astro';
 import TileBand from '../components/TileBand.astro';
 import GameCard from '../components/GameCard.astro';
 import CtaBlock from '../components/CtaBlock.astro';
 import games from '../data/games.json';
 import { gameIcons } from '../data/icons';
+import { SITE, orgRef } from '../data/seo';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Games by SOBI Interactive',
+  itemListElement: games.map((g, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    item: {
+      '@type': 'VideoGame',
+      name: g.name,
+      genre: g.genre,
+      gamePlatform: ['Android', 'iOS'],
+      author: orgRef,
+      url: `${SITE}/#games`,
+    },
+  })),
+};
 ---
 <Base
   title="SOBI Interactive | Mobile game studio in Vietnam"
-  description="SOBI Interactive is a mobile game studio in Vietnam. We take games from the first idea to players on Android and iOS, building our own titles and working alongside publishers."
+  description="SOBI Interactive is a mobile game studio in Vietnam making casual, puzzle and idle games for Android and iOS, and working alongside publishers."
+  image="/og/og-home.png"
+  jsonLd={jsonLd}
 >
   <section class="hero">
-    <div class="wrap">
+    <HeroMotion />
+    <div class="wrap hero__in">
       <h1 data-reveal>
         <span class="hero__l1">Think big</span>
         <span class="hero__l2 outline">from small games.</span>
@@ -19,32 +42,12 @@ import { gameIcons } from '../data/icons';
       <p class="lead hero__text" data-reveal>SOBI Interactive is a mobile game studio in Vietnam. We take games from the first idea to players on Android and iOS, building our own titles and working alongside publishers.</p>
       <div class="hero__actions" data-reveal>
         <a href="/partners#submit" class="btn">Work with SOBI</a>
-        <a href="/about" class="link-arrow">About the studio →</a>
+        <a href="#games" class="link-arrow">See our games →</a>
       </div>
     </div>
   </section>
 
   <TileBand />
-
-  <section class="section">
-    <div class="wrap split">
-      <h2 data-reveal>Who<br />we are</h2>
-      <div data-reveal>
-        <p class="split__big">We are a small studio that makes games with real care.</p>
-        <p class="lead">Our mission is to create games that give players positive, relaxing moments, and to contribute to the growth of Vietnam's mobile game industry.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="wrap split">
-      <h2 data-reveal>How<br />we work</h2>
-      <div data-reveal>
-        <p class="split__big">Close to the game, close to you.</p>
-        <p class="lead">At SOBI, the people you talk to are the people who design the levels, tune the difficulty and read the numbers. We stay close to the game itself, from the first minute of play to the data behind it.</p>
-      </div>
-    </div>
-  </section>
 
   <section class="section" id="games">
     <div class="wrap">
@@ -70,16 +73,39 @@ import { gameIcons } from '../data/icons';
     </div>
   </section>
 
+  <section class="section">
+    <div class="wrap split">
+      <h2 data-reveal>Who<br />we are</h2>
+      <div data-reveal>
+        <p class="split__big">We are a small studio that makes games with real care.</p>
+        <p class="lead">Our mission is to create games that give players positive, relaxing moments, and to contribute to the growth of Vietnam's mobile game industry.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap split">
+      <h2 data-reveal>How<br />we work</h2>
+      <div data-reveal>
+        <p class="split__big">Close to the game, close to you.</p>
+        <p class="lead">At SOBI, the people you talk to are the people who design the levels, tune the difficulty and read the numbers. We stay close to the game itself, from the first minute of play to the data behind it.</p>
+      </div>
+    </div>
+  </section>
+
   <CtaBlock />
 </Base>
 
 <style>
   .hero {
+    position: relative;
+    overflow: hidden;
     min-height: 100svh;
     display: flex;
     align-items: center;
     padding: 140px 0 80px;
   }
+  .hero__in { position: relative; z-index: 1; }
   .hero h1 { display: flex; flex-direction: column; gap: 0.08em; }
   .hero__l2 { -webkit-text-stroke-width: clamp(1px, 0.2vw, 2px); }
   .hero__text { margin: 40px 0 0; }
