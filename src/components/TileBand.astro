@@ -1,0 +1,54 @@
+---
+// Decorative band of square tiles (moment.gs "puzzle band", in the Imba monochrome look).
+import { Image } from 'astro:assets';
+import { gameIcons } from '../data/icons';
+
+const icons = Object.values(gameIcons);
+type Tile = { kind: 'icon'; src: (typeof icons)[number] } | { kind: 'line' } | { kind: 'fill' } | { kind: 'letter'; ch: string };
+const pattern: Tile[] = [];
+const extras: Tile[] = [{ kind: 'line' }, { kind: 'letter', ch: 'S' }, { kind: 'fill' }, { kind: 'letter', ch: 'O' }, { kind: 'line' }, { kind: 'letter', ch: 'B' }];
+icons.forEach((src, i) => {
+  pattern.push({ kind: 'icon', src });
+  pattern.push(extras[i % extras.length]);
+});
+---
+<div class="band" aria-hidden="true">
+  <div class="band__track">
+    {[0, 1].map(() => (
+      <div class="band__set">
+        {pattern.map((t) => (
+          <div class={`tile tile--${t.kind}`}>
+            {t.kind === 'icon' && <Image src={t.src} alt="" width={240} height={240} loading="lazy" />}
+            {t.kind === 'letter' && <span>{t.ch}</span>}
+          </div>
+        ))}
+      </div>
+    ))}
+  </div>
+</div>
+
+<style>
+  .band { overflow: hidden; border-top: 1px solid var(--line); padding: 40px 0; }
+  .band__track { display: flex; width: max-content; animation: slide 60s linear infinite; }
+  .band__set { display: flex; gap: 16px; padding-right: 16px; }
+  .tile {
+    width: clamp(120px, 16vw, 200px);
+    aspect-ratio: 1;
+    flex: none;
+    border: 1px solid var(--line);
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+  }
+  .tile--fill { background: var(--fg); border-color: var(--fg); }
+  .tile--line { background: var(--card); }
+  .tile--letter span {
+    font-weight: 900;
+    font-size: clamp(64px, 9vw, 120px);
+    line-height: 1;
+    letter-spacing: -0.04em;
+  }
+  .tile--icon img { width: 100%; height: 100%; object-fit: cover; }
+  @keyframes slide { to { transform: translateX(-50%); } }
+  @media (prefers-reduced-motion: reduce) { .band__track { animation: none; } }
+</style>

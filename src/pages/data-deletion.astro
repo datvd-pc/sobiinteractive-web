@@ -1,0 +1,35 @@
+---
+import Legal from '../layouts/Legal.astro';
+const email = 'contact@sobiinteractive.com';
+const subject = encodeURIComponent('Data deletion request');
+---
+<Legal
+  title="Data Deletion"
+  updated="19 November 2026"
+  description="How to ask SOBI Interactive to delete the personal data linked to you or to one of our games."
+>
+  <p>You can ask SOBI Interactive to delete the personal data we hold about you at any time, free of charge. This page explains how.</p>
+
+  <h2>1. Send us a request</h2>
+  <p>Email <a href={`mailto:${email}?subject=${subject}`}>{email}</a> with the subject <strong>Data deletion request</strong> and include:</p>
+  <ul>
+    <li>the name of the game, or "website" if your request is about the contact form or an email you sent us;</li>
+    <li>the platform you play on (Android or iOS);</li>
+    <li>any player ID shown in the game's settings, if the game shows one.</li>
+  </ul>
+  <p>We may ask a follow-up question to confirm that the request comes from you.</p>
+
+  <h2>2. What we delete</h2>
+  <p>We delete the gameplay data, device data and contact information linked to you, and we ask the service providers that process this data for us to delete it as well. We confirm by email once the deletion is complete, within 30 days of your request.</p>
+
+  <h2>3. What we may keep</h2>
+  <p>We may keep records of in-game purchases where the law requires us to keep them for accounting or tax purposes, and data that has been made anonymous so it can no longer be linked to you.</p>
+
+  <h2>4. Other things you can do</h2>
+  <ul>
+    <li><strong>Stop data collection:</strong> uninstalling a game stops it from collecting any further data from your device.</li>
+    <li><strong>Reset or limit your advertising ID:</strong> on Android, go to Settings, Google, Ads; on iOS, go to Settings, Privacy &amp; Security, Tracking.</li>
+  </ul>
+
+  <p>More detail on how we handle data is in our <a href="/privacy">Privacy Policy</a>.</p>
+</Legal>

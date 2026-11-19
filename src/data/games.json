@@ -1,0 +1,8 @@
+[
+  { "name": "Purr Parking", "icon": "purr", "genre": "Car Jam Puzzle", "status": "IN DEVELOPMENT", "googlePlay": "", "appStore": "" },
+  { "name": "Hex Haulers", "icon": "hex", "genre": "Hexa Sort Puzzle", "status": "IN DEVELOPMENT", "googlePlay": "", "appStore": "" },
+  { "name": "Juice Lines", "icon": "juice", "genre": "Draw Puzzle", "status": "IN DEVELOPMENT", "googlePlay": "", "appStore": "" },
+  { "name": "Grain Merge", "icon": "grain", "genre": "Merge Puzzle", "status": "IN DEVELOPMENT", "googlePlay": "", "appStore": "" },
+  { "name": "Bumper Shove", "icon": "bumper", "genre": "Physics Puzzle", "status": "IN DEVELOPMENT", "googlePlay": "", "appStore": "" },
+  { "name": "Meow Dozer", "icon": "dozer", "genre": "Arcade Idle", "status": "IN DEVELOPMENT", "googlePlay": "", "appStore": "" }
+]

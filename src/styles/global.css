@@ -1,0 +1,130 @@
+@import '@fontsource/be-vietnam-pro/300.css';
+@import '@fontsource/be-vietnam-pro/400.css';
+@import '@fontsource/be-vietnam-pro/700.css';
+@import '@fontsource/be-vietnam-pro/900.css';
+
+:root {
+  --bg: #1c1c1c;
+  --card: #252525;
+  --line: #333333;
+  --fg: #ffffff;
+  --mute: #888888;
+  --wrap: 1280px;
+  --gutter: clamp(16px, 4vw, 48px);
+  --h1: clamp(48px, 9vw, 96px);
+  --h2: clamp(32px, 5vw, 48px);
+  --h3: clamp(22px, 3vw, 32px);
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: 'Be Vietnam Pro', system-ui, sans-serif;
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 1.65;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+img { display: block; max-width: 100%; height: auto; }
+a { color: inherit; text-decoration: none; }
+::selection { background: var(--fg); color: var(--bg); }
+
+.wrap { width: 100%; max-width: var(--wrap); margin: 0 auto; padding: 0 var(--gutter); }
+
+h1, h2, h3 {
+  margin: 0;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  line-height: 0.95;
+}
+h1 { font-size: var(--h1); }
+h2 { font-size: var(--h2); }
+h3 { font-size: var(--h3); }
+.outline {
+  color: transparent;
+  -webkit-text-stroke: 2px var(--fg);
+}
+@supports not (-webkit-text-stroke: 1px black) {
+  .outline { color: var(--fg); }
+}
+
+.lead { font-size: clamp(17px, 1.6vw, 20px); font-weight: 300; color: #cfcfcf; max-width: 640px; }
+.mute { color: var(--mute); }
+.label {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--mute);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 52px;
+  padding: 0 28px;
+  background: var(--fg);
+  color: var(--bg);
+  border: 1px solid var(--fg);
+  font: 700 14px/1 'Be Vietnam Pro', sans-serif;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition: background 0.25s, color 0.25s;
+}
+.btn:hover, .btn:focus-visible { background: transparent; color: var(--fg); }
+.btn--dark { background: var(--bg); color: var(--fg); border-color: var(--bg); }
+.btn--dark:hover, .btn--dark:focus-visible { background: transparent; color: var(--bg); }
+.link-arrow {
+  font-weight: 700;
+  font-size: 15px;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.25s;
+}
+.link-arrow:hover, .link-arrow:focus-visible { border-color: currentColor; }
+
+:focus-visible { outline: 2px solid var(--fg); outline-offset: 3px; }
+
+.section { padding: clamp(80px, 12vw, 160px) 0; border-top: 1px solid var(--line); }
+
+/* Fade-up on scroll (only when JS is on) */
+.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.js [data-reveal].is-in { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .js [data-reveal] { opacity: 1; transform: none; transition: none; }
+}
+
+/* Custom cursor (fine pointers only) */
+.cursor { display: none; }
+@media (pointer: fine) {
+  .has-cursor, .has-cursor a, .has-cursor button { cursor: none; }
+  .cursor {
+    display: block;
+    position: fixed;
+    top: 0; left: 0;
+    width: 12px; height: 12px;
+    margin: -6px 0 0 -6px;
+    border-radius: 50%;
+    background: #fff;
+    mix-blend-mode: difference;
+    pointer-events: none;
+    z-index: 1000;
+    transition: width 0.2s, height 0.2s, margin 0.2s, opacity 0.2s;
+    opacity: 0;
+  }
+  .cursor.is-on { opacity: 1; }
+  .cursor.is-hover { width: 48px; height: 48px; margin: -24px 0 0 -24px; }
+}

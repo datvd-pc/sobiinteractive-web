@@ -1,0 +1,59 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+
+const email = 'contact@sobiinteractive.com';
+const doors = [
+  { title: 'Publishers & studios', text: 'You have a publishing opportunity, a game or a prototype to discuss.', label: 'Talk to us', href: '/partners#submit' },
+  { title: 'Careers', text: 'You love making games and want to join SOBI.', label: 'Email us', href: `mailto:${email}?subject=Careers` },
+  { title: 'Everything else', text: 'Press, partnerships, suppliers and investors.', label: 'Email us', href: `mailto:${email}` },
+];
+---
+<Base
+  title="Contact | SOBI Interactive"
+  description="Get in touch with SOBI Interactive, a mobile game studio in Vietnam."
+>
+  <PageHero l1="Get in" l2="touch.">
+    <p class="lead">Choose the right door and your message will reach the right person faster.</p>
+  </PageHero>
+
+  <section class="section">
+    <div class="wrap doors">
+      {doors.map((d) => (
+        <article class="door" data-reveal>
+          <h3>{d.title}</h3>
+          <p>{d.text}</p>
+          <a href={d.href} class="btn">{d.label}</a>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap company" data-reveal>
+      <p class="label">Studio</p>
+      <p class="company__name">SOBI Interactive</p>
+      <p class="mute">Vietnam</p>
+      <p><a href={`mailto:${email}`} class="link-arrow">{email}</a></p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .doors { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+  .door {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background: var(--card);
+    border: 1px solid var(--line);
+    padding: 36px 32px;
+  }
+  .door h3 { font-size: clamp(22px, 2.2vw, 28px); }
+  .door p { margin: 16px 0 32px; color: #cfcfcf; font-weight: 300; flex: 1; }
+  .company p { margin: 0; }
+  .company__name { margin-top: 16px !important; font-weight: 900; font-size: clamp(28px, 4vw, 44px); text-transform: uppercase; letter-spacing: -0.02em; line-height: 1.1; }
+  .company .mute { margin-top: 8px; }
+  .company .link-arrow { display: inline-block; margin-top: 20px; font-size: clamp(17px, 2vw, 22px); }
+  @media (max-width: 900px) { .doors { grid-template-columns: 1fr; } }
+</style>

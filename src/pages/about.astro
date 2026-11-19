@@ -1,0 +1,70 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBlock from '../components/CtaBlock.astro';
+
+const values = [
+  { title: 'Care', text: 'We polish every level and every small movement, because players feel the difference.' },
+  { title: 'Always learning', text: 'Mobile games change every day. We test, measure and learn from players to keep getting better.' },
+  { title: 'Honesty', text: 'We say what we do and do what we say, with players, with partners and with each other.' },
+  { title: 'Going far together', text: 'A good game is the work of many hands. We believe in building long journeys together.' },
+];
+---
+<Base
+  title="About | SOBI Interactive"
+  description="SOBI Interactive is a mobile game studio based in Vietnam that believes a good game starts with respect for players and care in every detail."
+>
+  <PageHero l1="We are" l2="SOBI Interactive.">
+    <p class="lead">SOBI Interactive is a mobile game studio based in Vietnam. We are a small studio that believes a good game starts with respect for players and care in every detail.</p>
+  </PageHero>
+
+  <section class="section">
+    <div class="wrap">
+      <h2 data-reveal>What we<br />stand for</h2>
+      <div class="values">
+        {values.map((v, i) => (
+          <article class="value" data-reveal>
+            <span class="value__no">0{i + 1}</span>
+            <h3>{v.title}</h3>
+            <p>{v.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="careers">
+    <div class="wrap split">
+      <h2 data-reveal>Careers</h2>
+      <div data-reveal>
+        <p class="split__big">Make memorable games with SOBI.</p>
+        <p class="lead">We have no open positions listed yet. If you love making games and want to grow with SOBI, send us a short note about what you have worked on through our Contact page. We read every message.</p>
+        <a href="/contact" class="btn careers__btn">Contact us</a>
+      </div>
+    </div>
+  </section>
+
+  <CtaBlock />
+</Base>
+
+<style>
+  .values {
+    margin-top: 64px;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+  }
+  .value { background: var(--card); border: 1px solid var(--line); padding: 32px 28px 36px; }
+  .value__no { display: block; font-weight: 900; font-size: 14px; color: var(--mute); letter-spacing: 0.1em; }
+  .value h3 { margin-top: 48px; font-size: clamp(22px, 2vw, 26px); }
+  .value p { margin: 16px 0 0; color: #cfcfcf; font-weight: 300; }
+
+  .split { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 48px; }
+  .split__big { margin: 0 0 20px; font-size: clamp(24px, 3vw, 36px); font-weight: 700; line-height: 1.2; }
+  .split .lead { margin: 0; }
+  .careers__btn { margin-top: 36px; }
+
+  @media (max-width: 1000px) { .values { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 900px) { .split { grid-template-columns: 1fr; gap: 24px; } }
+  @media (max-width: 560px) { .values { grid-template-columns: 1fr; margin-top: 40px; } .value h3 { margin-top: 28px; } }
+</style>

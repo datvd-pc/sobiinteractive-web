@@ -1,0 +1,110 @@
+---
+import Base from '../layouts/Base.astro';
+import TileBand from '../components/TileBand.astro';
+import GameCard from '../components/GameCard.astro';
+import CtaBlock from '../components/CtaBlock.astro';
+import games from '../data/games.json';
+import { gameIcons } from '../data/icons';
+---
+<Base
+  title="SOBI Interactive | Mobile game studio in Vietnam"
+  description="SOBI Interactive is a mobile game studio in Vietnam. We take games from the first idea to players on Android and iOS, building our own titles and working alongside publishers."
+>
+  <section class="hero">
+    <div class="wrap">
+      <h1 data-reveal>
+        <span class="hero__l1">Think big</span>
+        <span class="hero__l2 outline">from small games.</span>
+      </h1>
+      <p class="lead hero__text" data-reveal>SOBI Interactive is a mobile game studio in Vietnam. We take games from the first idea to players on Android and iOS, building our own titles and working alongside publishers.</p>
+      <div class="hero__actions" data-reveal>
+        <a href="/partners#submit" class="btn">Work with SOBI</a>
+        <a href="/about" class="link-arrow">About the studio →</a>
+      </div>
+    </div>
+  </section>
+
+  <TileBand />
+
+  <section class="section">
+    <div class="wrap split">
+      <h2 data-reveal>Who<br />we are</h2>
+      <div data-reveal>
+        <p class="split__big">We are a small studio that makes games with real care.</p>
+        <p class="lead">Our mission is to create games that give players positive, relaxing moments, and to contribute to the growth of Vietnam's mobile game industry.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap split">
+      <h2 data-reveal>How<br />we work</h2>
+      <div data-reveal>
+        <p class="split__big">Close to the game, close to you.</p>
+        <p class="lead">At SOBI, the people you talk to are the people who design the levels, tune the difficulty and read the numbers. We stay close to the game itself, from the first minute of play to the data behind it.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="games">
+    <div class="wrap">
+      <div class="games__head">
+        <h2 data-reveal>Our games</h2>
+        <div data-reveal>
+          <p class="split__big">What we are working on.</p>
+          <p class="lead">Some of our games are still in development, and some are being prepared with our partners. Store links will be added as each game launches.</p>
+        </div>
+      </div>
+      <div class="games">
+        {games.map((g) => (
+          <GameCard
+            name={g.name}
+            icon={gameIcons[g.icon]}
+            genre={g.genre}
+            status={g.status as 'IN DEVELOPMENT' | 'COMING SOON' | 'LIVE'}
+            googlePlay={g.googlePlay}
+            appStore={g.appStore}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CtaBlock />
+</Base>
+
+<style>
+  .hero {
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+    padding: 140px 0 80px;
+  }
+  .hero h1 { display: flex; flex-direction: column; gap: 0.08em; }
+  .hero__l2 { -webkit-text-stroke-width: clamp(1px, 0.2vw, 2px); }
+  .hero__text { margin: 40px 0 0; }
+  .hero__actions { margin-top: 40px; display: flex; flex-wrap: wrap; align-items: center; gap: 20px 32px; }
+
+  .split, .games__head {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: 48px;
+    align-items: start;
+  }
+  .split__big { margin: 0 0 20px; font-size: clamp(24px, 3vw, 36px); font-weight: 700; line-height: 1.2; letter-spacing: -0.01em; }
+  .split .lead, .games__head .lead { margin: 0; }
+
+  .games {
+    margin-top: 72px;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+  }
+  @media (max-width: 900px) {
+    .split, .games__head { grid-template-columns: 1fr; gap: 24px; }
+    .games { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 48px; }
+  }
+  @media (max-width: 560px) {
+    .games { gap: 10px; }
+  }
+</style>
