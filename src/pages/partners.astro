@@ -48,7 +48,7 @@ const jsonLd = [
   <PageHero l1="Build it" l2="with us.">
     <p class="lead">From the first idea to global launch, SOBI works with publishers who want a dedicated mobile game team in Vietnam.</p>
     <div class="actions">
-      <a href="#submit" class="btn" data-role="publisher">Talk to us</a>
+      <a href="#submit" class="btn">Talk to us</a>
       <a href="#faq" class="link-arrow">Questions we get →</a>
     </div>
   </PageHero>
@@ -65,7 +65,7 @@ const jsonLd = [
           </article>
         ))}
       </div>
-      <a href="#submit" class="btn ways__btn" data-role="publisher" data-reveal>Talk to us</a>
+      <a href="#submit" class="btn ways__btn" data-reveal>Talk to us</a>
     </div>
   </section>
 
@@ -89,56 +89,26 @@ const jsonLd = [
     <div class="wrap form-wrap">
       <div data-reveal>
         <p class="label">Let's go further together</p>
-        <div data-for="Publisher">
-          <h2 class="form-title">Tell us what you are looking for.</h2>
-          <p class="lead">A few details help us bring the right games and the right team to our first conversation.</p>
-        </div>
-        <div data-for="Studio" hidden>
-          <h2 class="form-title">Tell us about your game.</h2>
-          <p class="lead">The last two questions take a little thought. That is on purpose: it helps us understand what makes your game yours.</p>
-        </div>
+        <h2 class="form-title">Tell us what you are looking for.</h2>
+        <p class="lead">A few details help us bring the right games and the right team to our first conversation.</p>
       </div>
 
       <form class="form" id="partner-form" data-key={formKey} data-email={email} novalidate data-reveal>
-        <fieldset class="field field--full">
-          <legend>I am a</legend>
-          <div class="seg">
-            <label><input type="radio" name="role" value="Publisher" checked /><span>Publisher</span></label>
-            <label><input type="radio" name="role" value="Studio" /><span>Studio</span></label>
-          </div>
-        </fieldset>
-
-        <label class="field"><span>Company or team name</span><input name="company" required autocomplete="organization" /></label>
+        <label class="field"><span>Company name</span><input name="company" required autocomplete="organization" /></label>
         <label class="field"><span>Your name</span><input name="name" required autocomplete="name" /></label>
         <label class="field"><span>Email</span><input name="email" type="email" required autocomplete="email" /></label>
         <label class="field"><span>Country</span><input name="country" required autocomplete="country-name" /></label>
-        <label class="field field--full"><span>Team size</span>
-          <select name="team_size" required>
+        <label class="field field--full"><span>How would you like to work with us?</span>
+          <select name="work_type" required>
             <option value="" disabled selected hidden>Select</option>
-            <option>1–4</option><option>5–9</option><option>10–19</option><option>20+</option>
+            <option>Co-development</option><option>Full-service development</option><option>Games from your library</option><option>Not sure yet</option>
           </select>
         </label>
-
-        <div class="group field--full" data-for="Publisher">
-          <label class="field field--full"><span>What kind of games are you looking for?</span><textarea name="looking_for" rows="5" data-req></textarea></label>
-        </div>
-
-        <div class="group field--full" data-for="Studio" hidden>
-          <label class="field"><span>Game or concept name</span><input name="game" data-req /></label>
-          <label class="field"><span>Stage</span>
-            <select name="stage" data-req>
-              <option value="" disabled selected hidden>Select</option>
-              <option>Idea</option><option>Prototype</option><option>MVP</option><option>Soft-launched</option><option>Live</option>
-            </select>
-          </label>
-          <label class="field field--full"><span>Link (optional)</span><input name="link" type="url" placeholder="https://" /></label>
-          <label class="field field--full"><span>What is the core mechanic?</span><textarea name="mechanic" rows="4" data-req></textarea></label>
-          <label class="field field--full"><span>What makes your game different?</span><textarea name="different" rows="4" data-req></textarea></label>
-        </div>
+        <label class="field field--full"><span>What kind of games are you looking for?</span><textarea name="looking_for" rows="5" required></textarea></label>
 
         <label class="check field--full">
           <input type="checkbox" name="consent" required />
-          <span>I have read the <a href="/privacy">Privacy Policy</a> and agree that SOBI may use this information to review my submission.</span>
+          <span>I have read the <a href="/privacy">Privacy Policy</a> and agree that SOBI may use this information to reply to my enquiry.</span>
         </label>
 
         <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
@@ -236,24 +206,9 @@ const jsonLd = [
   const form = document.getElementById('partner-form') as HTMLFormElement | null;
   if (form) {
     const msg = form.querySelector<HTMLElement>('.form__msg')!;
-    const groups = document.querySelectorAll<HTMLElement>('#submit [data-for]');
-    const role = () => (form.querySelector<HTMLInputElement>('input[name="role"]:checked')?.value ?? 'Studio');
-
-    const syncRole = () => groups.forEach((g) => { g.hidden = g.dataset.for !== role(); });
-    form.querySelectorAll('input[name="role"]').forEach((r) => r.addEventListener('change', syncRole));
-
-    // Buttons on the two cards preselect the role.
-    document.querySelectorAll<HTMLAnchorElement>('[data-role]').forEach((a) =>
-      a.addEventListener('click', () => {
-        const v = a.dataset.role === 'publisher' ? 'Publisher' : 'Studio';
-        const input = form.querySelector<HTMLInputElement>(`input[name="role"][value="${v}"]`);
-        if (input) { input.checked = true; syncRole(); }
-      })
-    );
-
     const visibleFields = () =>
       [...form.querySelectorAll<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>('input, select, textarea')]
-        .filter((el) => !el.closest('[hidden]') && el.name !== 'botcheck' && el.name !== 'role');
+        .filter((el) => el.name !== 'botcheck');
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -275,14 +230,14 @@ const jsonLd = [
         return;
       }
 
-      const lines: string[] = [`I am a: ${role()}`];
+      const lines: string[] = [];
       visibleFields().forEach((el) => {
         if (el.name === 'consent' || !el.value) return;
         const label = el.closest('label')?.querySelector('span')?.textContent ?? el.name;
         lines.push(`${label}: ${el.value}`);
       });
       const company = (form.elements.namedItem('company') as HTMLInputElement).value;
-      const subject = `${role()} enquiry from ${company} (sobiinteractive.com)`;
+      const subject = `Publisher enquiry from ${company} (sobiinteractive.com)`;
 
       const key = form.dataset.key;
       if (!key) {
@@ -309,7 +264,6 @@ const jsonLd = [
         const data = await res.json();
         if (!data.success) throw new Error(data.message);
         form.reset();
-        syncRole();
         msg.textContent = 'Thank you. Your message has reached us.';
       } catch {
         msg.textContent = `Something went wrong. Please email us at ${form.dataset.email}.`;

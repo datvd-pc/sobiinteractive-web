@@ -15,7 +15,7 @@ export const GET: APIRoute = () => {
 - Platforms: Android, iOS
 - Genres: ${GENRES.join(', ')}
 - Prototype speed: usually 2 to 5 days, depending on what the game needs
-- Works with: game publishers (main focus)
+- Works with: game publishers
 - Ways to work together: co-development with revenue share; full-service development; games from the studio's existing library
 - Before signing, publishers see the concept and a playable prototype
 - SOBI integrates the publisher's SDKs and shares all of the game's data

@@ -6,7 +6,7 @@ import { gameIcons } from '../data/icons';
 const icons = Object.values(gameIcons);
 type Tile = { kind: 'icon'; src: (typeof icons)[number] } | { kind: 'line' } | { kind: 'fill' } | { kind: 'letter'; ch: string };
 const pattern: Tile[] = [];
-const extras: Tile[] = [{ kind: 'line' }, { kind: 'letter', ch: 'S' }, { kind: 'fill' }, { kind: 'letter', ch: 'O' }, { kind: 'line' }, { kind: 'letter', ch: 'B' }];
+const extras: Tile[] = [{ kind: 'letter', ch: 'S' }, { kind: 'letter', ch: 'O' }, { kind: 'letter', ch: 'B' }, { kind: 'letter', ch: 'I' }, { kind: 'fill' }, { kind: 'line' }];
 icons.forEach((src, i) => {
   pattern.push({ kind: 'icon', src });
   pattern.push(extras[i % extras.length]);
