@@ -31,7 +31,10 @@ const cols = [
         ))}
       </div>
     </div>
-    <p class="ftr__legal">Copyright © 2026 SOBI Interactive™. All rights reserved.</p>
+    <div class="ftr__legal">
+      <p>Copyright © 2026 SOBI Interactive™. All rights reserved.</p>
+      <p>SOBI Interactive is a brand of Sophia Business Innovation Company Limited, Vietnam.</p>
+    </div>
   </div>
 </footer>
 
@@ -43,7 +46,8 @@ const cols = [
   .ftr ul { list-style: none; margin: 16px 0 0; padding: 0; display: grid; gap: 10px; }
   .ftr li a { color: #cfcfcf; transition: color 0.2s; }
   .ftr li a:hover { color: var(--fg); }
-  .ftr__legal { margin: 72px 0 0; padding-top: 24px; border-top: 1px solid var(--line); font-size: 13px; color: var(--mute); }
+  .ftr__legal { margin: 72px 0 0; padding-top: 24px; border-top: 1px solid var(--line); font-size: 13px; color: var(--mute); display: grid; gap: 6px; }
+  .ftr__legal p { margin: 0; }
   @media (max-width: 640px) {
     .ftr__cols { grid-template-columns: 1fr 1fr; gap: 32px; width: 100%; }
   }
